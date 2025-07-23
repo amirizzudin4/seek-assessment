@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: invalid-pod
+spec:
+  containers:
+  - name: invalid-container
+    image: nginx:1.21
+    ports:
+    - containerPort: "eighty"  # Invalid: should be integer, not string
+  restartPolicy: AlwaysRestart  # Invalid: should be Always, Never, or OnFailure
+  nodeSelector:
+    invalidLabel: ""  # Invalid: empty label value
+  resources:
+    limits:
+      cpu: "not-a-number"  # Invalid: should be valid CPU format like "500m" or "1"
+      memory: -128Mi  # Invalid: negative memory value
